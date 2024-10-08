@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Horarios</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            margin: 0; /* Eliminar margen por defecto del body */
+        }
+        .login-container {
+            background-color: #fff;
+            padding: 40px; /* Aumentar el padding para más espacio interno */
+            border-radius: 10px; /* Bordes más redondeados */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada */
+            text-align: center;
+            width: 300px; /* Definir un ancho fijo */
+        }
+        .login-container h1, .login-container h2 {
+            margin: 0 0 20px; /* Margen inferior para separación */
+            font-weight: normal; /* Cambiar a peso normal */
+        }
+        .login-container input {
+            width: calc(100% - 20px); /* Asegurar que se ajuste con padding */
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box; /* Incluir padding en el cálculo del ancho */
+        }
+        .login-container button {
+            width: calc(100% - 20px); /* Igual que los inputs */
+            padding: 10px;
+            background-color: #007BFF;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer; /* Cambiar cursor al pasar por encima */
+            margin-top: 10px; /* Espacio superior para separar de los inputs */
+        }
+        .login-container button:hover {
+            background-color: #0056b3; /* Color más oscuro al pasar el mouse */
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h1>Sistema de Horarios</h1>
+        <h2>Inicio de Sesión</h2>
+        <form action="autenticacion.php" method="post">
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <button type="submit">Ingresar</button>
+        </form>
+    </div>
+</body>
+</html>
