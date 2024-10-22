@@ -208,7 +208,6 @@ $result = $conn->query($sql);
         <h1>País</h1>
         <div class="form-container">
             <form action="pais.php" method="post">
-                <input type="number" name="idPais" id="idPais" placeholder="ID del País">
                 <input type="text" name="nombrePais" id="nombrePais" placeholder="Nombre del País" required>
                 <input type="text" name="descriPais" id="descriPais" placeholder="Descripción del País" required>
                 <input type="text" name="nomenPais" id="nomenPais" placeholder="Nomenclatura del País" required>
