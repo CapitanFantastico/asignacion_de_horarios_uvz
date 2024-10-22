@@ -57,13 +57,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
 
-//por eso es que en el if se usa el empty, porque si esta vacio el id es que quieres insertar un valor, porque recuerda que en la base de datos esta AUTO_INCREMET
     var_dump($idPais);
     var_dump(empty($idPais));
-// es que el problema es que es el mismo formulario, entonces se debe validar y eslo que estoy mirando, cuando no existe el id que es el caso del if, no debe de usar el id, por tatno se debe eliminar de esa insercion porque el sql lo aumenta solo. el php esta bien, el problema debe ser el formulario, voy a ver
-//creo que hay un type en html para ver si existe
-// si es claro asi pensada yo tambien, eso si no lo pense
-//que error te marca? ya va
+    
     if (empty($idPais)) {
         // Insertar un nuevo país -
         $sql = "INSERT INTO pais (nombrePais, descriPais, nomenPais) VALUES (?, ?, ?)";
