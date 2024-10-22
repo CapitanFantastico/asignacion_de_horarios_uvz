@@ -210,10 +210,10 @@ INSERT INTO `municipio` (`idMuni`, `nombreMuni`, `descriMuni`, `nomenMuni`, `idD
 
 --
 -- Estructura de tabla para la tabla `pais`
---
+--funciono?
 
 CREATE TABLE `pais` (
-  `idPais` int(11) NOT NULL COMMENT 'Número de Identificación del País',
+  `idPais` int(11) AUTO_INCREMENT NOT NULL COMMENT 'Número de Identificación del País',
   `nombrePais` varchar(30) DEFAULT NULL COMMENT 'Nombre del País',
   `descriPais` varchar(30) DEFAULT NULL COMMENT 'Descripción del País',
   `nomenPais` varchar(3) DEFAULT NULL COMMENT 'Nomenclatura del País'
