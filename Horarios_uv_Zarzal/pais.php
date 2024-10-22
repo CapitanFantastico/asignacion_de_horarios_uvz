@@ -15,33 +15,74 @@ require_once "config/conexion.php";
 
 // Handle form submission for adding or updating a country
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $idPais = $_POST['idPais'];
+    $idPais = isset($_POST['idPais']) ? trim($_POST['idPais']) : '';
     $nombrePais = $_POST['nombrePais'];
     $descriPais = $_POST['descriPais'];
     $nomenPais = $_POST['nomenPais'];
 
-    if ($idPais) {
-        // Update existing country
+
+/*<?php endif; ?>*/
+
+//mira un ejemplo que tengo
+
+/*<?php if ($variable_para_ingresar_o_actualizar === 'ingresar') : ?>;
+            <div class="form-container">
+            <form action="pais.php" method="post">
+
+                <input type="text" name="nombrePais" id="nombrePais" placeholder="Nombre del País" required>
+                <input type="text" name="descriPais" id="descriPais" placeholder="Descripción del País" required>
+                <input type="text" name="nomenPais" id="nomenPais" placeholder="Nomenclatura del País" required>
+                <button type="submit">Guardar</button>
+            </form>
+        </div>
+                //elimas el campo id porque la validacion indica que actualizaras
+
+<?php elseif ($variable_para_ingresar_o_actualizar === 'actualizar') : ?>;
+                <div class="form-container">
+            <form action="pais.php" method="post">
+                <input type="number" name="idPais" id="idPais" placeholder="ID del País">
+                <input type="text" name="nombrePais" id="nombrePais" placeholder="Nombre del País" required>
+                <input type="text" name="descriPais" id="descriPais" placeholder="Descripción del País" required>
+                <input type="text" name="nomenPais" id="nomenPais" placeholder="Nomenclatura del País" required>
+                <button type="submit">Guardar</button>
+            </form>
+        </div>
+            //como ahi se ingresa si se coloca el id
+        <?php endif; ?>
+
+    */
+    //esa seria la estructura del html que tendrias que poner para validar por medio de dos opciones al inicio
+    
+//y ya al final para cerrar esas validaciones colocas
+
+
+
+//por eso es que en el if se usa el empty, porque si esta vacio el id es que quieres insertar un valor, porque recuerda que en la base de datos esta AUTO_INCREMET
+    var_dump($idPais);
+    var_dump(empty($idPais));
+// es que el problema es que es el mismo formulario, entonces se debe validar y eslo que estoy mirando, cuando no existe el id que es el caso del if, no debe de usar el id, por tatno se debe eliminar de esa insercion porque el sql lo aumenta solo. el php esta bien, el problema debe ser el formulario, voy a ver
+//creo que hay un type en html para ver si existe
+// si es claro asi pensada yo tambien, eso si no lo pense
+//que error te marca? ya va
+    if (empty($idPais)) {
+        // Insertar un nuevo país -
+        $sql = "INSERT INTO pais (nombrePais, descriPais, nomenPais) VALUES (?, ?, ?)";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("sss", $nombrePais, $descriPais, $nomenPais);
+    } else {
+        // Actualizar país existente
         $sql = "UPDATE pais SET nombrePais = ?, descriPais = ?, nomenPais = ? WHERE idPais = ?";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("sssi", $nombrePais, $descriPais, $nomenPais, $idPais);
-        if ($stmt->execute()) {
-            echo "<script>alert('País actualizado exitosamente.'); window.location.href = 'pais.php';</script>";
-        } else {
-            echo "<script>alert('Error al actualizar el país: " . $stmt->error . "'); window.location.href = 'pais.php';</script>";
-        }
-        $stmt->close();
-    } else {
-        // Insert new country
-        $sql = "INSERT INTO pais (idPais, nombrePais, descriPais, nomenPais) VALUES ('$idPais', '$nombrePais', '$descriPais', '$nomenPais')";
-        $resultado = mysqli_query($conn, $sql);
-        if ($resultado === TRUE) {
-            header("location: pais.php");
-            exit();
-        } else {
-            echo "Datos no ingresados";
-        }
     }
+    
+    if ($stmt->execute()) {
+        echo "<script>alert('Operación realizada exitosamente.'); window.location.href = 'pais.php';</script>";
+    } else {
+        echo "<script>alert('Error: " . $stmt->error . "'); window.location.href = 'pais.php';</script>";
+    }
+    $stmt->close();
+    
 }
 
 // Handle deletion of a country
@@ -167,7 +208,7 @@ $result = $conn->query($sql);
         <h1>País</h1>
         <div class="form-container">
             <form action="pais.php" method="post">
-                <input type="number" name="idPais" id="idPais" placeholder="ID del País" required>
+                <input type="number" name="idPais" id="idPais" placeholder="ID del País">
                 <input type="text" name="nombrePais" id="nombrePais" placeholder="Nombre del País" required>
                 <input type="text" name="descriPais" id="descriPais" placeholder="Descripción del País" required>
                 <input type="text" name="nomenPais" id="nomenPais" placeholder="Nomenclatura del País" required>
@@ -192,7 +233,7 @@ $result = $conn->query($sql);
             </thead>
             <tbody>
                 <?php while ($row = $result->fetch_assoc()): ?>
-                <tr>
+               <tr>
                     <td><?php echo $row['idPais']; ?></td>
                     <td><?php echo $row['nombrePais']; ?></td>
                     <td><?php echo $row['descriPais']; ?></td>
