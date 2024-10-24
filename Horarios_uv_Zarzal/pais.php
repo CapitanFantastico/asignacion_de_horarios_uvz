@@ -20,43 +20,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $descriPais = $_POST['descriPais'];
     $nomenPais = $_POST['nomenPais'];
 
-
-/*<?php endif; ?>*/
-
-//mira un ejemplo que tengo
-
-/*<?php if ($variable_para_ingresar_o_actualizar === 'ingresar') : ?>;
-            <div class="form-container">
-            <form action="pais.php" method="post">
-
-                <input type="text" name="nombrePais" id="nombrePais" placeholder="Nombre del País" required>
-                <input type="text" name="descriPais" id="descriPais" placeholder="Descripción del País" required>
-                <input type="text" name="nomenPais" id="nomenPais" placeholder="Nomenclatura del País" required>
-                <button type="submit">Guardar</button>
-            </form>
-        </div>
-                //elimas el campo id porque la validacion indica que actualizaras
-
-<?php elseif ($variable_para_ingresar_o_actualizar === 'actualizar') : ?>;
-                <div class="form-container">
-            <form action="pais.php" method="post">
-                <input type="number" name="idPais" id="idPais" placeholder="ID del País">
-                <input type="text" name="nombrePais" id="nombrePais" placeholder="Nombre del País" required>
-                <input type="text" name="descriPais" id="descriPais" placeholder="Descripción del País" required>
-                <input type="text" name="nomenPais" id="nomenPais" placeholder="Nomenclatura del País" required>
-                <button type="submit">Guardar</button>
-            </form>
-        </div>
-            //como ahi se ingresa si se coloca el id
-        <?php endif; ?>
-
-    */
-    //esa seria la estructura del html que tendrias que poner para validar por medio de dos opciones al inicio
-    
-//y ya al final para cerrar esas validaciones colocas
-
-
-
     var_dump($idPais);
     var_dump(empty($idPais));
     
