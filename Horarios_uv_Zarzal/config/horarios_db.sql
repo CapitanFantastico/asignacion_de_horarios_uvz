@@ -3,9 +3,14 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 08-10-2024 a las 21:37:16
+-- Tiempo de generación: 25-10-2024 a las 19:08:35
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
+
+CREATE DATABASE horarios;
+
+USE DATABASE horarios;
+
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -210,10 +215,10 @@ INSERT INTO `municipio` (`idMuni`, `nombreMuni`, `descriMuni`, `nomenMuni`, `idD
 
 --
 -- Estructura de tabla para la tabla `pais`
---funciono?
+--
 
 CREATE TABLE `pais` (
-  `idPais` int(11) AUTO_INCREMENT NOT NULL COMMENT 'Número de Identificación del País',
+  `idPais` int(11) NOT NULL COMMENT 'Número de Identificación del País',
   `nombrePais` varchar(30) DEFAULT NULL COMMENT 'Nombre del País',
   `descriPais` varchar(30) DEFAULT NULL COMMENT 'Descripción del País',
   `nomenPais` varchar(3) DEFAULT NULL COMMENT 'Nomenclatura del País'
@@ -224,7 +229,9 @@ CREATE TABLE `pais` (
 --
 
 INSERT INTO `pais` (`idPais`, `nombrePais`, `descriPais`, `nomenPais`) VALUES
-(1, 'colombia', 'Pais de ', '123');
+(1, 'colombia', 'Pais de ', '123'),
+(4, 'cali ', 'pais ', '135'),
+(54, 'colombia 53', 'pais de origen no 52', '32');
 
 -- --------------------------------------------------------
 
@@ -444,6 +451,12 @@ ALTER TABLE `usuario`
 --
 -- AUTO_INCREMENT de las tablas volcadas
 --
+
+--
+-- AUTO_INCREMENT de la tabla `pais`
+--
+ALTER TABLE `pais`
+  MODIFY `idPais` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Número de Identificación del País', AUTO_INCREMENT=62;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
