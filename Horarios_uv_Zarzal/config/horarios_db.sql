@@ -2,14 +2,12 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: localhost
--- Tiempo de generación: 25-10-2024 a las 19:08:35
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 26-10-2024 a las 02:36:22
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
-CREATE DATABASE horarios;
-
-USE DATABASE horarios;
+-- utilizar el formato InnoDB	utf8_general_ci	
 
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
