@@ -16,15 +16,18 @@ require_once "config/conexion.php";
 // Handle form submission for adding or updating a country
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $idPais = isset($_POST['idPais']) ? trim($_POST['idPais']) : '';
-    $nombrePais = $_POST['nombrePais'];
-    $descriPais = $_POST['descriPais'];
-    $nomenPais = $_POST['nomenPais'];
+    $nombrePais = isset($_POST['nombrePais']) ? trim($_POST['nombrePais']) : '';
+    $descriPais = isset($_POST['descriPais']) ? trim($_POST['descriPais']) : '';
+    $nomenPais = isset($_POST['nomenPais']) ? trim($_POST['nomenPais']) : '';
 
-    var_dump($idPais);
-    var_dump(empty($idPais));
-    
+    // Validación simple
+    if (empty($nombrePais) || empty($descriPais) || empty($nomenPais)) {
+        echo "<script>alert('Todos los campos son obligatorios.'); window.location.href = 'pais.php';</script>";
+        exit();
+    }
+
     if (empty($idPais)) {
-        // Insertar un nuevo país -
+        // Insertar un nuevo país
         $sql = "INSERT INTO pais (nombrePais, descriPais, nomenPais) VALUES (?, ?, ?)";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("sss", $nombrePais, $descriPais, $nomenPais);
@@ -35,13 +38,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $stmt->bind_param("sssi", $nombrePais, $descriPais, $nomenPais, $idPais);
     }
     
+    // Ejecutar la consulta
     if ($stmt->execute()) {
         echo "<script>alert('Operación realizada exitosamente.'); window.location.href = 'pais.php';</script>";
     } else {
-        echo "<script>alert('Error: " . $stmt->error . "'); window.location.href = 'pais.php';</script>";
+        echo "<script>alert('Error: " . htmlspecialchars($stmt->error) . "'); window.location.href = 'pais.php';</script>";
     }
     $stmt->close();
-    
 }
 
 // Handle deletion of a country
@@ -159,7 +162,7 @@ $result = $conn->query($sql);
     <div class="navbar">
         <a href="inicio.php">Home</a>
         <a href="pais.php">País</a>
-        <a href="municipio.php">municipio</a>
+        <a href="municipio.php">Municipio</a>
         <a href="departamento.php">Departamento</a>
         <a href="logout.php" class="right">Logout</a>
     </div>
@@ -167,6 +170,7 @@ $result = $conn->query($sql);
         <h1>País</h1>
         <div class="form-container">
             <form action="pais.php" method="post">
+                <input type="hidden" name="idPais" id="idPais">
                 <input type="text" name="nombrePais" id="nombrePais" placeholder="Nombre del País" required>
                 <input type="text" name="descriPais" id="descriPais" placeholder="Descripción del País" required>
                 <input type="text" name="nomenPais" id="nomenPais" placeholder="Nomenclatura del País" required>
@@ -191,7 +195,7 @@ $result = $conn->query($sql);
             </thead>
             <tbody>
                 <?php while ($row = $result->fetch_assoc()): ?>
-               <tr>
+                <tr>
                     <td><?php echo $row['idPais']; ?></td>
                     <td><?php echo $row['nombrePais']; ?></td>
                     <td><?php echo $row['descriPais']; ?></td>
@@ -218,3 +222,4 @@ $result = $conn->query($sql);
 
 <?php
 $conn->close();
+?>
