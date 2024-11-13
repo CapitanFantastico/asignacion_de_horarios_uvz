@@ -92,7 +92,7 @@ $result = $conn->query($sql);
             background-color: #f0f0f0;
         }
         .navbar {
-            background-color: #007BFF;
+            background-color: #DC143C;
             overflow: hidden;
         }
         .navbar a {
@@ -104,7 +104,7 @@ $result = $conn->query($sql);
             text-decoration: none;
         }
         .navbar a:hover {
-            background-color: #0056b3;
+            background-color: #FF5A73;
         }
         .navbar .right {
             float: right;
@@ -131,7 +131,7 @@ $result = $conn->query($sql);
         .form-container button {
             width: 100%;
             padding: 10px;
-            background-color: #007BFF;
+            background-color: #DC143C;
             border: none;
             border-radius: 5px;
             color: #fff;
@@ -150,7 +150,7 @@ $result = $conn->query($sql);
             text-align: left;
         }
         th {
-            background-color: #007BFF;
+            background-color: #DC143C;
             color: #fff;
         }
         .actions {
