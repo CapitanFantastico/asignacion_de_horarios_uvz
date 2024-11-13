@@ -15,34 +15,36 @@ if (!isset($_SESSION['username'])) {
 
 // Handle form submission for adding or updating a department
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $idDepto = $_POST['idDepto'];
-    $nombreDepto = $_POST['nombreDepto'];
-    $descriDepto = $_POST['descriDepto'];
-    $nomenDepto = $_POST['nomenDepto'];
-    $idPais = $_POST['idPais'];
+    $idDepto = isset($_POST['idDepto']) ? trim($_POST['idDepto']) : '';
+    $nombreDepto = isset($_POST['nombreDepto']) ? trim($_POST['nombreDepto']) : '';
+    $descriDepto = isset($_POST['descriDepto']) ? trim($_POST['descriDepto']) : '';
+    $nomenDepto = isset($_POST['nomenDepto']) ? trim($_POST['nomenDepto']) : '';
 
-    if ($idDepto) {
-        // Update existing department
-        $sql = "UPDATE departamento SET nombreDepto = ?, descriDepto = ?, nomenDepto = ?, idPais = ? WHERE idDepto = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("ssssi", $nombreDepto, $descriDepto, $nomenDepto, $idPais, $idDepto);
-        if ($stmt->execute()) {
-            echo "<script>alert('Departamento actualizado exitosamente.'); window.location.href = 'departamento.php';</script>";
-        } else {
-            echo "<script>alert('Error al actualizar el departamento: " . $stmt->error . "'); window.location.href = 'departamento.php';</script>";
-        }
-        $stmt->close();
-    } else {
-        // Insert new department
-        $sql = "INSERT INTO departamento (nombreDepto, descriDepto, nomenDepto, idPais) VALUES ('$nombreDepto', '$descriDepto', '$nomenDepto', '$idPais')";
-        $resultado = mysqli_query($conn, $sql);
-        if ($resultado === TRUE) {
-            header("location: departamento.php");
-            exit();
-        } else {
-            echo "Datos no ingresados";
-        }
+    // Validación simple
+    if (empty($nombreDepto) || empty($descriDepto) || empty($nomenDepto)) {
+        echo "<script>alert('Todos los campos son obligatorios.'); window.location.href = 'departamento.php';</script>";
+        exit();
     }
+
+    if (empty($idDepto)) {
+        // Insertar un nuevo departamento
+        $sql = "INSERT INTO departamento (nombreDepto, descriDepto, nomenDepto) VALUES (?, ?, ?)";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("sss", $nombreDepto, $descriDepto, $nomenDepto);
+    } else {
+        // Actualizar departamento existente
+        $sql = "UPDATE departamento SET nombreDepto = ?, descriDepto = ?, nomenDepto = ? WHERE idDepto = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("sssi", $nombreDepto, $descriDepto, $nomenDepto, $idDepto);
+    }
+    
+    // Ejecutar la consulta
+    if ($stmt->execute()) {
+        echo "<script>alert('Operación realizada exitosamente.'); window.location.href = 'departamento.php';</script>";
+    } else {
+        echo "<script>alert('Error: " . htmlspecialchars($stmt->error) . "'); window.location.href = 'departamento.php';</script>";
+    }
+    $stmt->close();
 }
 
 // Handle deletion of a department
@@ -82,7 +84,7 @@ $result = $conn->query($sql);
             background-color: #f0f0f0;
         }
         .navbar {
-            background-color: #007BFF;
+            background-color: #DC143C;
             overflow: hidden;
         }
         .navbar a {
@@ -94,7 +96,7 @@ $result = $conn->query($sql);
             text-decoration: none;
         }
         .navbar a:hover {
-            background-color: #0056b3;
+            background-color: #FF5A73;
         }
         .navbar .right {
             float: right;
@@ -121,7 +123,7 @@ $result = $conn->query($sql);
         .form-container button {
             width: 100%;
             padding: 10px;
-            background-color: #007BFF;
+            background-color: #DC143C;
             border: none;
             border-radius: 5px;
             color: #fff;
@@ -140,7 +142,7 @@ $result = $conn->query($sql);
             text-align: left;
         }
         th {
-            background-color: #007BFF;
+            background-color: #DC143C;
             color: #fff;
         }
         .actions {
@@ -162,7 +164,7 @@ $result = $conn->query($sql);
         <a href="pais.php">País</a>
         <a href="municipio.php">municipio</a>
         <a href="departamento.php">Departamento</a>
-        <a href="logout.php" class="right">Logout</a>
+        <a href="logout.php" class="right">cerrar sesion</a>
     </div>
     <div class="content">
         <h1>Departamento</h1>
@@ -172,7 +174,6 @@ $result = $conn->query($sql);
                 <input type="text" name="nombreDepto" id="nombreDepto" placeholder="Nombre del Departamento" required>
                 <input type="text" name="descriDepto" id="descriDepto" placeholder="Descripción del Departamento" required>
                 <input type="text" name="nomenDepto" id="nomenDepto" placeholder="Nomenclatura del Departamento" required>
-                <input type="text" name="idPais" id="idPais" placeholder="ID del País" required>
                 <button type="submit">Guardar</button>
             </form>
         </div>
