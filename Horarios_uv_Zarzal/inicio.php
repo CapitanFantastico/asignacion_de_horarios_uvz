@@ -7,6 +7,7 @@ if (!isset($_SESSION['username'])) {
     header("Location: index.html");
     exit();
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -23,7 +24,7 @@ if (!isset($_SESSION['username'])) {
             background-color: #f0f0f0;
         }
         .navbar {
-            background-color: #007BFF;
+            background-color: #DC143C;
             overflow: hidden;
         }
         .navbar a {
@@ -35,7 +36,7 @@ if (!isset($_SESSION['username'])) {
             text-decoration: none;
         }
         .navbar a:hover {
-            background-color: #0056b3;
+            background-color: #FF5A73;
         }
         .navbar .right {
             float: right;
@@ -59,7 +60,7 @@ if (!isset($_SESSION['username'])) {
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
         }
         .fab:hover {
-            background-color: #0056b3;
+            background-color: #FF5A73;
         }
         .fab-menu {
             display: none;
@@ -69,7 +70,7 @@ if (!isset($_SESSION['username'])) {
             background-color: white;
             border: 1px solid #ccc;
             border-radius: 5px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 2px 10px #DC143C;
         }
         .fab-menu a {
             display: block;
@@ -78,7 +79,7 @@ if (!isset($_SESSION['username'])) {
             text-decoration: none;
         }
         .fab-menu a:hover {
-            background-color: #f0f0f0;
+            background-color: #DC143C;
         }
     </style>
     <script>
