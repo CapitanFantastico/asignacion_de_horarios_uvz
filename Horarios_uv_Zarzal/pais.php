@@ -13,6 +13,7 @@ if (!isset($_SESSION['username'])) {
 
 require_once "config/conexion.php";
 
+
 // Handle form submission for adding or updating a country
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $idPais = isset($_POST['idPais']) ? trim($_POST['idPais']) : '';
@@ -68,8 +69,39 @@ $searchQuery = $search ? "WHERE nombrePais LIKE '%$search%' OR descriPais LIKE '
 // Retrieve list of countries
 $sql = "SELECT * FROM pais $searchQuery";
 $result = $conn->query($sql);
-?>
 
+
+// lista paises select
+
+$paises = [
+    "Afganistán", "Albania", "Alemania", "Andorra", "Angola", "Antigua y Barbuda", "Arabia Saudita", 
+    "Argelia", "Argentina", "Armenia", "Australia", "Austria", "Azerbaiyán", "Bahamas", "Bangladesh",
+    "Barbados", "Baréin", "Bélgica", "Belice", "Benín", "Bielorrusia", "Birmania", "Bolivia", 
+    "Bosnia y Herzegovina", "Botsuana", "Brasil", "Brunéi", "Bulgaria", "Burkina Faso", "Burundi",
+    "Bután", "Cabo Verde", "Camboya", "Camerún", "Canadá", "Catar", "Chad", "Chile", "China", 
+    "Chipre", "Colombia", "Comoras", "Corea del Norte", "Corea del Sur", "Costa de Marfil", "Costa Rica",
+    "Croacia", "Cuba", "Dinamarca", "Dominica", "Ecuador", "Egipto", "El Salvador", "Emiratos Árabes Unidos",
+    "Eritrea", "Eslovaquia", "Eslovenia", "España", "Estados Unidos", "Estonia", "Esuatini", "Etiopía",
+    "Filipinas", "Finlandia", "Fiyi", "Francia", "Gabón", "Gambia", "Georgia", "Ghana", "Granada",
+    "Grecia", "Guatemala", "Guinea", "Guinea-Bisáu", "Guinea Ecuatorial", "Guyana", "Haití", "Honduras",
+    "Hungría", "India", "Indonesia", "Irak", "Irán", "Irlanda", "Islandia", "Islas Marshall", "Islas Salomón",
+    "Israel", "Italia", "Jamaica", "Japón", "Jordania", "Kazajistán", "Kenia", "Kirguistán", "Kiribati",
+    "Kuwait", "Laos", "Lesoto", "Letonia", "Líbano", "Liberia", "Libia", "Liechtenstein", "Lituania",
+    "Luxemburgo", "Macedonia del Norte", "Madagascar", "Malasia", "Malaui", "Maldivas", "Malí", "Malta",
+    "Marruecos", "Mauricio", "Mauritania", "México", "Micronesia", "Moldavia", "Mónaco", "Mongolia",
+    "Montenegro", "Mozambique", "Namibia", "Nauru", "Nepal", "Nicaragua", "Níger", "Nigeria", "Noruega",
+    "Nueva Zelanda", "Omán", "Países Bajos", "Pakistán", "Palaos", "Panamá", "Papúa Nueva Guinea",
+    "Paraguay", "Perú", "Polonia", "Portugal", "Reino Unido", "República Centroafricana", "República Checa",
+    "República del Congo", "República Democrática del Congo", "República Dominicana", "Ruanda", "Rumania",
+    "Rusia", "Samoa", "San Cristóbal y Nieves", "San Marino", "San Vicente y las Granadinas", "Santa Lucía",
+    "Santo Tomé y Príncipe", "Senegal", "Serbia", "Seychelles", "Sierra Leona", "Singapur", "Siria",
+    "Somalia", "Sri Lanka", "Sudáfrica", "Sudán", "Sudán del Sur", "Suecia", "Suiza", "Surinam", 
+    "Tailandia", "Tanzania", "Tayikistán", "Timor Oriental", "Togo", "Tonga", "Trinidad y Tobago",
+    "Túnez", "Turkmenistán", "Turquía", "Tuvalu", "Ucrania", "Uganda", "Uruguay", "Uzbekistán", 
+    "Vanuatu", "Venezuela", "Vietnam", "Yemen", "Yibuti", "Zambia", "Zimbabue"
+];
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -84,7 +116,7 @@ $result = $conn->query($sql);
             background-color: #f0f0f0;
         }
         .navbar {
-            background-color: #007BFF;
+            background-color: #DC143C;
             overflow: hidden;
         }
         .navbar a {
@@ -95,8 +127,8 @@ $result = $conn->query($sql);
             padding: 14px 20px;
             text-decoration: none;
         }
-        .navbar a:hover {
-            background-color: #0056b3;
+        .navbar a:hover { 
+            background-color: #FF5A73;
         }
         .navbar .right {
             float: right;
@@ -113,7 +145,7 @@ $result = $conn->query($sql);
             max-width: 500px;
             margin: 20px auto;
         }
-        .form-container input {
+        .form-container input, .form-container select {
             width: 100%;
             padding: 10px;
             margin: 10px 0;
@@ -123,7 +155,7 @@ $result = $conn->query($sql);
         .form-container button {
             width: 100%;
             padding: 10px;
-            background-color: #007BFF;
+            background-color: #DC143C;
             border: none;
             border-radius: 5px;
             color: #fff;
@@ -142,7 +174,7 @@ $result = $conn->query($sql);
             text-align: left;
         }
         th {
-            background-color: #007BFF;
+            background-color: #DC143C;
             color: #fff;
         }
         .actions {
@@ -164,14 +196,20 @@ $result = $conn->query($sql);
         <a href="pais.php">País</a>
         <a href="municipio.php">Municipio</a>
         <a href="departamento.php">Departamento</a>
-        <a href="logout.php" class="right">Logout</a>
+        <a href="logout.php" class="right">cerrar sesion</a>
     </div>
     <div class="content">
         <h1>País</h1>
         <div class="form-container">
             <form action="pais.php" method="post">
                 <input type="hidden" name="idPais" id="idPais">
-                <input type="text" name="nombrePais" id="nombrePais" placeholder="Nombre del País" required>
+                <label for="nombrePais">Selecciona el País:</label>
+                <select name="nombrePais" id="nombrePais" required>
+                    <option value="">-- Selecciona un país --</option>
+                    <?php foreach ($paises as $pais): ?>
+                        <option value="<?php echo htmlspecialchars($pais); ?>"><?php echo htmlspecialchars($pais); ?></option>
+                    <?php endforeach; ?>
+                </select>
                 <input type="text" name="descriPais" id="descriPais" placeholder="Descripción del País" required>
                 <input type="text" name="nomenPais" id="nomenPais" placeholder="Nomenclatura del País" required>
                 <button type="submit">Guardar</button>
