@@ -80,24 +80,7 @@ $result = $conn->query($sql);
             padding: 0;
             background-color: #f0f0f0;
         }
-        .navbar {
-            background-color: #DC143C;
-            overflow: hidden;
-        }
-        .navbar a {
-            float: left;
-            display: block;
-            color: #fff;
-            text-align: center;
-            padding: 14px 20px;
-            text-decoration: none;
-        }
-        .navbar a:hover {
-            background-color: #FF5A73;
-        }
-        .navbar .right {
-            float: right;
-        }
+        
         .content {
             padding: 20px;
             text-align: center;
@@ -156,15 +139,7 @@ $result = $conn->query($sql);
     </style>
 </head>
 <body>
-    <div class="navbar">
-        <a href="inicio.php">Home</a>
-        <a href="docente.php">Docente</a>
-        <a href="tipodocente.php">Tipo de Docente</a>
-        <a href="criteriodocente.php">Criterio de Docente</a>
-        <a href="inclusionsocial.php">Inclusión Social</a>
-        <a href="docasignatura.php">Docente Asignatura</a>
-        <a href="logout.php" class="right">cerrar sesion</a>
-    </div>
+<?php include 'menu.php'; ?>
     <div class="content">
         <h1>Tipo de Docente</h1>
         <div class="form-container">

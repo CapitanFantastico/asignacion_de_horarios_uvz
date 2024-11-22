@@ -115,24 +115,7 @@ $paises = [
             padding: 0;
             background-color: #f0f0f0;
         }
-        .navbar {
-            background-color: #DC143C;
-            overflow: hidden;
-        }
-        .navbar a {
-            float: left;
-            display: block;
-            color: #fff;
-            text-align: center;
-            padding: 14px 20px;
-            text-decoration: none;
-        }
-        .navbar a:hover { 
-            background-color: #FF5A73;
-        }
-        .navbar .right {
-            float: right;
-        }
+        
         .content {
             padding: 20px;
             text-align: center;
@@ -191,13 +174,7 @@ $paises = [
     </style>
 </head>
 <body>
-    <div class="navbar">
-        <a href="inicio.php">Home</a>
-        <a href="pais.php">País</a>
-        <a href="municipio.php">Municipio</a>
-        <a href="departamento.php">Departamento</a>
-        <a href="logout.php" class="right">cerrar sesion</a>
-    </div>
+<?php include 'menu.php'; ?>
     <div class="content">
         <h1>País</h1>
         <div class="form-container">

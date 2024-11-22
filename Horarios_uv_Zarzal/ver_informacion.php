@@ -63,24 +63,7 @@ $columns[] = 'table_name'; // Add table name column
             padding: 0;
             background-color: #f0f0f0;
         }
-        .navbar {
-            background-color: #007BFF;
-            overflow: hidden;
-        }
-        .navbar a {
-            float: left;
-            display: block;
-            color: #fff;
-            text-align: center;
-            padding: 14px 20px;
-            text-decoration: none;
-        }
-        .navbar a:hover {
-            background-color: #0056b3;
-        }
-        .navbar .right {
-            float: right;
-        }
+        
         .content {
             padding: 20px;
             text-align: center;
@@ -227,12 +210,7 @@ $columns[] = 'table_name'; // Add table name column
     </script>
 </head>
 <body>
-    <div class="navbar">
-        <a href="inicio.php">Home</a>
-        <a href="ver_informacion.php">Ver Información</a>
-        <a href="informacion.php">ver Información por tablas
-        <a href="logout.php" class="right">cerrar sesion</a>
-    </div>
+<?php include 'menu.php'; ?>
     <div class="content">
         <h1>Ver Toda la Información</h1>
         <div class="search-container">

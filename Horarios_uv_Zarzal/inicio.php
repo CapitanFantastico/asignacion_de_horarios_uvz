@@ -2,7 +2,7 @@
 require_once "config/conexion.php";
 session_start();
 
-// Check if the user is logged in
+// Verificar si el usuario ha iniciado sesión
 if (!isset($_SESSION['username'])) {
     header("Location: index.html");
     exit();
@@ -16,30 +16,13 @@ if (!isset($_SESSION['username'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio</title>
+    
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
             background-color: #f0f0f0;
-        }
-        .navbar {
-            background-color: #DC143C;
-            overflow: hidden;
-        }
-        .navbar a {
-            float: left;
-            display: block;
-            color: #fff;
-            text-align: center;
-            padding: 14px 20px;
-            text-decoration: none;
-        }
-        .navbar a:hover {
-            background-color: #FF5A73;
-        }
-        .navbar .right {
-            float: right;
         }
         .content {
             padding: 20px;
@@ -62,26 +45,15 @@ if (!isset($_SESSION['username'])) {
         .fab:hover {
             background-color: #FF5A73;
         }
-        .fab-menu {
-            display: none;
-            position: fixed;
-            bottom: 80px;
-            right: 20px;
-            background-color: white;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-shadow: 0 2px 10px #DC143C;
-        }
-        .fab-menu a {
+
+        .center-image {
             display: block;
-            padding: 10px 20px;
-            color: #007BFF;
-            text-decoration: none;
-        }
-        .fab-menu a:hover {
-            background-color: #DC143C;
+            margin-left: auto;
+            margin-right: auto;
+            width: 25%; /* Ajusta el tamaño de la imagen según sea necesario */
         }
     </style>
+    
     <script>
         function toggleFabMenu() {
             var menu = document.getElementById('fabMenu');
@@ -92,35 +64,19 @@ if (!isset($_SESSION['username'])) {
             }
         }
     </script>
-    </head>
+</head>
 <body>
-    <div class="navbar">
-        <a href="#home">Home</a>
-        <a href="docente.php">DOCENTE</a>
-        <a href="asignatura.php">ASIGNATURA</a>
-        <a href="pais.php">PAIS</a>
-        <a href="ver_informacion.php">INFORMACION REGISTRADA</a>
-        <a href="logout.php" class="right">cerrar sesión</a>
-    </div>
+    
+    <?php include 'menu.php'; ?>
+
     <div class="content">
         <h1>Bienvenido señ@r administrador, <?= htmlspecialchars($_SESSION['username']) ?> !</h1>
         <p>This is the home page.</p>
         <img src="img/icono_univalle.jpg" alt="Imagen de bienvenida" class="center-image">
     </div>
-    <button class="fab" onclick="toggleFabMenu()">+</button>
-    <div id="fabMenu" class="fab-menu">
-        <a href="pais.php">PAIS</a>
-        <a href="docente.php">DOCENTE</a>
-        <a href="asignatura.php">ASIGNATURA</a>
-        <a href="logout.php">Cerrar sesión</a>
-    </div>
-    <style>
-        .center-image {
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-            width: 25%; /* Ajusta el tamaño de la imagen según sea necesario */
-        }
-    </style>
+    
+    <!-- Botón flotante -->
+
+
 </body>
 </html>
