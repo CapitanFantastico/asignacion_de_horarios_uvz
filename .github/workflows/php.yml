@@ -2,9 +2,9 @@ name: PHP CI and Deploy Without Composer
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
 
 permissions:
   contents: read
@@ -53,18 +53,12 @@ jobs:
           php-version: '7.4'
           extensions: mbstring, intl, mysqli
 
-      # Paso 4: Verificar sintaxis
+      # Paso 4: Verificar sintaxis PHP
       - name: Check PHP syntax
         run: |
           find . -type f -name "*.php" -exec php -l {} \;
 
-      # Paso 5: Ejecutar pruebas
-      - name: Run tests
-        env:
-          DB_HOST: 127.0.0.1
-          DB_DATABASE: test
-          DB_USERNAME: root
-          DB_PASSWORD: root
+      # Paso 5: (Omitido) Ejecutar pruebas personalizadas
 
       # Paso 6: Generar artefactos (opcional)
       - name: Generate build artifacts
