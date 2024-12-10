@@ -1,0 +1,48 @@
+{
+    "packages": [
+        {
+            "name": "vendor/package-name",
+            "version": "1.2.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/vendor/package-name.git",
+                "reference": "1234567890abcdef"
+            },
+            "dist": {
+                "type": "tar",
+                "url": "https://example.com/package-name-1.2.3.tar.gz",
+                "reference": "1234567890abcdef"
+            },
+            "autoload": {
+                "psr-4": {
+                    "Vendor\\Package\\": "src/"
+                }
+            },
+            "scripts": {
+                "post-install-cmd": [
+                    "Vendor\\Package\\ScriptHandler::postInstall"
+                ]
+            }
+        }
+    ],
+    "packages-dev": [
+        {
+            "name": "vendor/dev-package",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/vendor/dev-package.git",
+                "reference": "abcdef1234567890"
+            }
+        }
+    ],
+    "config": {
+        "preferred-install": "dist",
+        "optimize-autoloader": true,
+        "platform": {
+            "php": "7.4.3"
+        }
+    },
+    "version": "1.0",
+    "content-hash": "abcd1234hashvalue"
+}
