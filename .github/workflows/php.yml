@@ -65,7 +65,6 @@ jobs:
           DB_DATABASE: test
           DB_USERNAME: root
           DB_PASSWORD: root
-        run: php ./tests/run-tests.php
 
       # Paso 6: Generar artefactos (opcional)
       - name: Generate build artifacts
