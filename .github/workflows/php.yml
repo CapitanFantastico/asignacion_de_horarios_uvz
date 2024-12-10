@@ -39,7 +39,7 @@ jobs:
       - name: Setup SSH
         uses: webfactory/ssh-agent@v0.7.0
         with:
-          ssh-private-key: ${{ secrets.DEPLOY_KEY }}
+          ssh-private-key: ${{ secrets.KEY_UVZ_ZARZAL }}
 
       - name: Configure Git
         run: |
