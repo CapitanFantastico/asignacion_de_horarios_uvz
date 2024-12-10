@@ -1,4 +1,4 @@
-name: PHP Composer CI and Deploy
+name: PHP CI and Deploy Without Composer
 
 on:
   push:
@@ -39,76 +39,54 @@ jobs:
       - name: Setup SSH
         uses: webfactory/ssh-agent@v0.7.0
         with:
-          ssh-private-key: ${{ secrets.KEY_UVZ_ZARZAL }}
+          ssh-private-key: ${{ secrets.DEPLOY_KEY }}
 
       - name: Configure Git
         run: |
           git config --global user.name "GitHub Actions Bot"
           git config --global user.email "actions@github.com"
 
-      # Paso 3: Cache Composer
-      - name: Cache Composer packages
-        id: composer-cache
-        uses: actions/cache@v3
-        with:
-          path: vendor
-          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-php-
-
-      # Paso 4: Configurar PHP
+      # Paso 3: Configurar PHP
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: '7.4'
           extensions: mbstring, intl, mysqli
 
-      # Paso 5: Validar Composer
-      - name: Validate composer.json and composer.lock
-        run: composer validate --strict
-
-      # Paso 6: Instalar dependencias
-      - name: Install dependencies
-        run: composer install --no-progress --no-suggest --prefer-dist
-
-      # Paso 7: Verificar sintaxis
+      # Paso 4: Verificar sintaxis
       - name: Check PHP syntax
         run: |
           find . -type f -name "*.php" -exec php -l {} \;
 
-      # Paso 8: Ejecutar análisis estático
-      - name: Run static analysis
-        run: composer phpstan
-
-      # Paso 9: Ejecutar pruebas
+      # Paso 5: Ejecutar pruebas
       - name: Run tests
         env:
           DB_HOST: 127.0.0.1
           DB_DATABASE: test
           DB_USERNAME: root
           DB_PASSWORD: root
-        run: composer test
+        run: php ./tests/run-tests.php
 
-      # Paso 10: Generar artefactos (opcional)
+      # Paso 6: Generar artefactos (opcional)
       - name: Generate build artifacts
         if: success()
         run: |
           mkdir -p artifacts
           zip -r artifacts/build.zip .
         
-      # Paso 11: Subir artefactos (opcional)
+      # Paso 7: Subir artefactos (opcional)
       - name: Upload Build Artifacts
         uses: actions/upload-artifact@v3
         with:
           name: build-artifacts
           path: artifacts/build.zip
 
-      # Paso 12: Despliegue
+      # Paso 8: Despliegue
       - name: Deploy
         run: |
-          ssh user@your-server.com 'cd /path/to/deployment && git pull && composer install'
+          ssh user@your-server.com 'cd /path/to/deployment && git pull && php setup.php'
 
-      # Paso 13: Notificar éxito (opcional)
+      # Paso 9: Notificar éxito (opcional)
       - name: Notify success
         if: success()
         run: echo "Deployment completed successfully!"
