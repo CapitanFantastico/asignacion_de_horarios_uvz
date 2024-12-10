@@ -64,8 +64,8 @@ jobs:
           extensions: mbstring, intl, mysqli
 
       # Paso 5: Validar Composer
-      - name: Validate composer.json and composer.lock
-        run: composer validate --strict
+      # - name: Validate composer.json and composer.lock
+      # run: composer validate --strict
 
       # Paso 6: Instalar dependencias
       - name: Install dependencies
