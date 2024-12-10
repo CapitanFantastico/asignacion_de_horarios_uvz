@@ -64,14 +64,23 @@ jobs:
           extensions: mbstring, intl, mysqli
 
       # Paso 5: Validar Composer
-      # - name: Validate composer.json and composer.lock
-      # run: composer validate --strict
+      - name: Validate composer.json and composer.lock
+        run: composer validate --strict
 
       # Paso 6: Instalar dependencias
       - name: Install dependencies
         run: composer install --no-progress --no-suggest --prefer-dist
 
-      # Paso 7: Ejecutar pruebas
+      # Paso 7: Verificar sintaxis
+      - name: Check PHP syntax
+        run: |
+          find . -type f -name "*.php" -exec php -l {} \;
+
+      # Paso 8: Ejecutar análisis estático
+      - name: Run static analysis
+        run: composer phpstan
+
+      # Paso 9: Ejecutar pruebas
       - name: Run tests
         env:
           DB_HOST: 127.0.0.1
@@ -80,7 +89,26 @@ jobs:
           DB_PASSWORD: root
         run: composer test
 
-      # Paso 8: Despliegue
+      # Paso 10: Generar artefactos (opcional)
+      - name: Generate build artifacts
+        if: success()
+        run: |
+          mkdir -p artifacts
+          zip -r artifacts/build.zip .
+        
+      # Paso 11: Subir artefactos (opcional)
+      - name: Upload Build Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-artifacts
+          path: artifacts/build.zip
+
+      # Paso 12: Despliegue
       - name: Deploy
         run: |
           ssh user@your-server.com 'cd /path/to/deployment && git pull && composer install'
+
+      # Paso 13: Notificar éxito (opcional)
+      - name: Notify success
+        if: success()
+        run: echo "Deployment completed successfully!"
