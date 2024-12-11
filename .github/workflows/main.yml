@@ -18,13 +18,11 @@ jobs:
     - name: Set up PHP
       uses: shivammathur/setup-php@v2
       with:
-        php-version: 'latest'
-        extensions: mysqli
+        php-version: '7.4'
+        extensions: mbstring, intl, mysqli
         tools: composer
 
     # Instalación de dependencias
-    - name: Install Dependencies
-      run: composer install --no-progress --no-suggest
 
     # Ejecución del linter
     - name: Run Linter
