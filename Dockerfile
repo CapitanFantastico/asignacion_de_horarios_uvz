@@ -1,4 +1,4 @@
-FROM php:latest-apache
+FROM php:8.1-apache
 
 # Instalar extensiones requeridas
 RUN docker-php-ext-install mysqli
