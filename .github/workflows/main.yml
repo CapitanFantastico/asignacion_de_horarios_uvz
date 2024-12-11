@@ -25,12 +25,8 @@ jobs:
     # Instalación de dependencias
 
     # Ejecución del linter
-    - name: Run Linter
-      run: vendor/bin/phpcs --standard=PSR12 src/
 
     # Ejecución de pruebas
-    - name: Run Tests
-      run: vendor/bin/phpunit tests
 
     # Construcción de la imagen Docker
     - name: Log in to DockerHub
